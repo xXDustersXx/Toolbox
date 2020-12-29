@@ -13,7 +13,7 @@ display_func()
 {
 	clear
 	echo "##############################"
-	echo "##      Systeme Setup       ##"
+	echo "##       System Setup       ##"
 	echo "##############################"
 }
 
