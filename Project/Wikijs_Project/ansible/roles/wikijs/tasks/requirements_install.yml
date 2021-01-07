@@ -1,5 +1,10 @@
+- name: Transfer nodejs script
+  copy:
+    src: "{ nodejs_src_path }"
+    dest: "{ nodejs_dest_path }"
+
 - name: prepare NodeJS install
-  script: "{ nodejs_install_path }"
+  script: "{ nodejs_dest_path }"
 
 - name: install NodeJS
   apt:
