@@ -1,0 +1,9 @@
+- name: First tasks
+  include_tasks:
+  args:
+    file: first_tasks.yml
+
+- name: Second tasks
+  include_tasks:
+  args:
+    file: second_tasks.yml

@@ -1,0 +1,4 @@
+port_tcp:
+  - "80"   # http 
+  - "5432" # postgresql
+  - "3000" # Wikijs default
