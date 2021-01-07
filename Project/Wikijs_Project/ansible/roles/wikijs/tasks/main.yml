@@ -1,4 +1,4 @@
-- name: Create Wikijs User
+- name: create wikijs user
   include_tasks:
   args:
     file: create_user.yml
