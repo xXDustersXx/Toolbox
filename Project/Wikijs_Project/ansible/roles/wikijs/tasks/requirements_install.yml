@@ -1,5 +1,10 @@
-- name: Install NodeJS
+- name: prepare NodeJS install
   script: "{ nodejs_install_path }"
+
+- name: install NodeJS
+  apt:
+    pkg:
+      - nodejs
 
 - name: Install PostgreSQL
   apt:
