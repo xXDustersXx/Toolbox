@@ -2,5 +2,5 @@
   user:
     name: wikijs
     uid: 1021
-    groups: sudo, wikijs
+    groups: sudo
     append: yes
