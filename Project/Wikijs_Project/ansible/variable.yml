@@ -2,6 +2,3 @@ port_tcp:
   - "80"   # http 
   - "5432" # postgresql
   - "3000" # Wikijs default
-
-nodejs_src_path: ../shell/nodjs_install.sh
-nodejs_dest_path: /tmp/nodjs_install.sh

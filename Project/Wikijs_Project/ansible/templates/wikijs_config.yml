@@ -26,7 +26,7 @@ db:
   host: localhost
   port: 5432
   user: wikijs
-  pass: " { DB_PASSWORD } "
+  pass: "{{ DB_PASSWORD }}"
   db: wikijs_db
   ssl: false
   # SQLite only:

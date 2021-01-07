@@ -4,13 +4,6 @@
     state: directory
     mode: '0755'
 
-- name: Give permissions to wikijs's user 
-  file:
-    path: /var/www/wikijs_server
-    owner: wikijs
-    group: wikijs
-    mode: '1755'
-
 - name: Download and install Wikijs
   unarchive:
     src: https://github.com/Requarks/wiki/releases/download/2.5.170/wiki-js.tar.gz
@@ -22,16 +15,18 @@
     src: templates/wikijs_config.yml
     dest: "/var/www/wikijs_server/config.yml"
 
+- name: Give permissions to wikijs's user
+  file:
+    path: /var/www/wikijs_server/
+    owner: wikijs
+    group: wikijs
+    mode: '0755'
+    recurse: yes
+
 - name: define wikijs as service
   template:
     src: templates/wikijs.service
     dest: "/etc/systemd/system/wikijs.service"
-
-- name: Enable service httpd and ensure it is not masked
-  systemd:
-    name: httpd
-    enabled: yes
-    masked: no
 
 - name: systemctl deamon reload
   systemd:

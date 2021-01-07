@@ -1,33 +1,64 @@
+- name: Install python3
+  apt: 
+    name: "{{ item }}" 
+    update_cache: yes 
+    state: latest
+  with_items:
+    - python3
+    - python3-pip
+    - libpq-dev
+
+- name: Install lib psycopg2
+  pip:
+    name: psycopg2
+    state: present
+
 - name: Transfer nodejs script
   copy:
-    src: "{ nodejs_src_path }"
-    dest: "{ nodejs_dest_path }"
+    src: roles/wikijs/files/nodjs_install.sh
+    dest: /tmp/nodjs_install.sh
 
 - name: prepare NodeJS install
-  script: "{ nodejs_dest_path }"
+  shell: sh /tmp/nodjs_install.sh
 
 - name: install NodeJS
-  apt:
-    pkg:
-      - nodejs
+  apt: 
+    name: nodejs 
+    update_cache: yes 
+    state: latest
 
 - name: Install PostgreSQL
-  apt:
-    pkg:
+  apt: 
+    name: "{{ item }}"
+    update_cache: yes 
+    state: latest
+  with_items: 
     - postgresql
     - postgresql-contrib
+    - python3-psycopg2
 
 - name: Create wikijs_db in PostgreSQL
-  postgresql_db:
+  become_user: postgres
+  community.general.postgresql_db:
     name: wikijs_db
 
 - name: add wikijs user and grant right to DB
-  postgresql_user:
+  become_user: postgres
+  community.general.postgresql_user:
     db: wikijs_db
     name: wikijs
-    password: "{ DB_PASSWORD }"
-    priv: "CONNECT/products:ALL"
+    password: "{{ DB_PASSWORD }}"
+    priv: "ALL"
     expires: infinity
+
+
+# Modules Error: interpreter psycopg2
+#  postgresql_user:
+#    db: wikijs_db
+#    name: wikijs
+#    password: "{ DB_PASSWORD }"
+#    priv: "CONNECT/products:ALL"
+#    expires: infinity
 
 - name: install Nginx
   apt:
