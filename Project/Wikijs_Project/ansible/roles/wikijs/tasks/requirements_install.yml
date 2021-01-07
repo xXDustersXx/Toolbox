@@ -1,0 +1,41 @@
+- name: Install NodeJS
+  script: "{ nodejs_install_path }"
+
+- name: Install PostgreSQL
+  apt:
+    pkg:
+    - postgresql
+    - postgresql-contrib
+
+- name: Create wikijs_db in PostgreSQL
+  postgresql_db:
+    name: wikijs_db
+
+- name: add wikijs user and grant right to DB
+  postgresql_user:
+    db: wikijs_db
+    name: wikijs
+    password: "{ DB_PASSWORD }"
+    priv: "CONNECT/products:ALL"
+    expires: infinity
+
+- name: install Nginx
+  apt:
+    pkg:
+      - nginx
+
+- name: Setup WikiJS virtual host
+  template:
+    src: templates/nginx_wikijs.conf
+    dest: "/etc/nginx/sites-available/wikijs.conf"
+
+- name: Enable WikiJS virtual host
+  file:
+    src: "/etc/nginx/sites-available/wikijs.conf"
+    dest: "/etc/nginx/sites-enabled/wikijs.conf"
+    state: link
+
+- name: Restart Nginx
+  systemd:
+    state: restarted
+    name: nginx

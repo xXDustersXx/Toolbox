@@ -1,0 +1,49 @@
+- name: Create wikijs_server directory
+  file:
+    path: /var/www/wikijs_server
+    state: directory
+    mode: '0755'
+
+- name: Give permissions to wikijs's user 
+  file:
+    path: /var/www/wikijs_server
+    owner: wikijs
+    group: wikijs
+    mode: '1755'
+
+- name: Download and install Wikijs
+  unarchive:
+    src: https://github.com/Requarks/wiki/releases/download/2.5.170/wiki-js.tar.gz
+    dest: /var/www/wikijs_server
+    remote_src: yes
+
+- name: Setup WikiJS configuration
+  template:
+    src: templates/wikijs_config.yml
+    dest: "/var/www/wikijs_server/config.yml"
+
+- name: define wikijs as service
+  template:
+    src: templates/wikijs.service
+    dest: "/etc/systemd/system/wikijs.service"
+
+- name: Enable service httpd and ensure it is not masked
+  systemd:
+    name: httpd
+    enabled: yes
+    masked: no
+
+- name: systemctl deamon reload
+  systemd:
+    daemon_reload: yes
+
+- name: Enable WikiJS service
+  systemd:
+    name: wikijs
+    enabled: yes
+    masked: no
+
+- name: Start WikiJS server
+  systemd:
+    state: started
+    name: wikijs

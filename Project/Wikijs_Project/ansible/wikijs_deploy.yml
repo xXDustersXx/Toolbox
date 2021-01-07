@@ -6,6 +6,7 @@
 
   vars_files:
     - variable.yml
+    - passwd_vars.yml
   
   roles:
     - wikijs

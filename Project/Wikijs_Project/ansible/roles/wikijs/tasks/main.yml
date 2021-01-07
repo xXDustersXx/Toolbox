@@ -1,9 +1,14 @@
-- name: First tasks
+- name: Create Wikijs User
   include_tasks:
   args:
-    file: first_tasks.yml
+    file: create_user.yml
 
-- name: Second tasks
+- name: Install Wikijs requirements
   include_tasks:
   args:
-    file: second_tasks.yml
+    file: requirements_install.yml
+
+- name: Wikijs setup 
+  include_tasks:
+  args:
+    file: wikijs_setup.yml
