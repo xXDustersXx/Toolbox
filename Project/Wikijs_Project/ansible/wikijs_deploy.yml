@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  remote_user: krvn
+  become: true
+
+  vars_files:
+    - variable.yml
+  
+  roles:
+    - wikijs
