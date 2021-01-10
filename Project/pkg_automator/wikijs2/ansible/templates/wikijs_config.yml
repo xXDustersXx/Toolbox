@@ -1,0 +1,79 @@
+###########################
+# Wiki.js - CONFIGURATION #
+###########################
+port: 3000
+
+# ---------#
+# Database #
+# ---------#
+
+db:
+  type: postgres
+  host: localhost
+  port: 5432
+  user: wikijs
+  pass: "{{ DB_PASSWORD }}"
+  db: wikijs_db
+  ssl: false
+
+####################
+# ADVANCED OPTIONS #
+####################
+
+trustProxy: false
+
+# -----------------#
+# SSL/TLS Settings #
+# -----------------#
+# Certificate format: 'pem' or 'pfx'
+
+ssl:
+  enabled: false
+  format: pem
+  # Using PEM format:
+  key: path/to/key.pem
+  cert: path/to/cert.pem
+  passphrase: null
+  dhparam: null
+  redirectNonSSLPort: 80
+# For PFX Format, use: pfx: path/to/cert.pfx
+
+# ----------------------#
+# Database Pool Options #
+# ----------------------#
+
+pool:
+  # min: 2
+  # max: 10
+
+# ---------------------------------------#
+# IP address the server should listen to #
+# ---------------------------------------#
+# Leave 0.0.0.0 for all interfaces
+
+bindIP: 0.0.0.0
+
+# ----------#
+# Log Level #
+# ----------#
+# Possible values: error, warn, info, verbose, debug, silly                                                                                                                                                                        
+logLevel: info
+
+# --------------#
+# Upload Limits #
+# --------------#
+# If you're using a reverse-proxy in front of Wiki.js, you must also change your proxy upload limits!
+
+uploads:
+  # Maximum upload size in bytes per file (default: 5242880 (5 MB))
+  maxFileSize: 5242880
+  # Maximum file uploads per request
+  maxFiles: 10
+
+# ---------------------------------------------------------------------
+# Offline Mode
+# ---------------------------------------------------------------------
+# If your server cannot access the internet. Set to true and manually
+# download the offline files for sideloading.
+
+offline: false
